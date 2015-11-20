@@ -46,6 +46,9 @@ class HtmlClarifai2DArray:
                source += html[count]
                count += 1
            sources.append(HtmlClarifai2DArray.remove_backslash(source))
+    print '************** get_sources'
+    print sources
+    print '**************'
     return sources
 
   def get_captions(self, html):
@@ -120,6 +123,9 @@ class HtmlClarifai2DArray:
             aKeyword = result['results'][0]["result"]["tag"]["classes"][i]
             keywords[count].append(aKeyword)
         count+=1
+    print '@@@@@@@@@@@@@ get_keywords'
+    print keywords
+    print '@@@@@@@@@@@@@@'
     return keywords
 
 
@@ -128,17 +134,29 @@ class HtmlClarifai2DArray:
     print username 
     print type(username)
 
+    print '1-----------'
     print HtmlClarifai2DArray.ig_username(username)
+    print '1-----------'
 
 #    self.clarifai_api = ClarifaiApi()
 
     #self.ig_username = ig_username(username)    
 
     response = urllib2.urlopen(HtmlClarifai2DArray.ig_username(username), timeout=10)
+    print '2----------- response'
+    print response
+    print '2-----------'
     insta_html = response.read()
     google_html = "https://photos.google.com/share/AF1QipONERd0AGm-CcUrQ_m56P4R0eypHJDNDLslYs0mrw_KWuLDtzxii6cE_rY7luRxqw?key=X0x3QWFlYmVCQlgtZGgzcFoycGhldWVYVjNzSGd3"
     likes = HtmlClarifai2DArray.get_likes(insta_html)
+
+    print '3----------- likes'
+    print likes
+    print '3-----------'
     insta_keywords = HtmlClarifai2DArray.get_keywords(HtmlClarifai2DArray.get_sources(insta_html))
+    print '4-----------'
+    print insta_keywords
+    print '4-----------'
     google_keywords = HtmlClarifai2DArray.get_keywords(HtmlClarifai2DArray.return_photo_url(google_html))
 
     highest_likes = 0.0
@@ -185,3 +203,4 @@ class HtmlClarifai2DArray:
                 highest = j
         photo_percent.insert(i, photo_percent.pop(highest))
         google_sources.insert(i, google_sources.pop(highest))
+
