@@ -90,7 +90,7 @@ class HtmlClarifai2DArray:
   @staticmethod
   def return_photo_url(html):
     photos = []
-    response = urllib2.urlopen(html)
+    response = urllib2.urlopen(html, timeout=10)
     html = response.read()
     location = 0
     for i in range(len(html)):
@@ -110,6 +110,7 @@ class HtmlClarifai2DArray:
   @staticmethod
   def get_keywords(sources):
 
+    clarifai_api = ClarifaiApi() 
     keywords = []
     count = 0
     for i in sources:
@@ -133,7 +134,7 @@ class HtmlClarifai2DArray:
 
     #self.ig_username = ig_username(username)    
 
-    response = urllib2.urlopen(HtmlClarifai2DArray.ig_username(username))
+    response = urllib2.urlopen(HtmlClarifai2DArray.ig_username(username), timeout=10)
     insta_html = response.read()
     google_html = "https://photos.google.com/share/AF1QipONERd0AGm-CcUrQ_m56P4R0eypHJDNDLslYs0mrw_KWuLDtzxii6cE_rY7luRxqw?key=X0x3QWFlYmVCQlgtZGgzcFoycGhldWVYVjNzSGd3"
     likes = HtmlClarifai2DArray.get_likes(insta_html)
@@ -184,5 +185,3 @@ class HtmlClarifai2DArray:
                 highest = j
         photo_percent.insert(i, photo_percent.pop(highest))
         google_sources.insert(i, google_sources.pop(highest))
-
-
